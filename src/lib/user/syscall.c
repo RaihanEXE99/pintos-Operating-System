@@ -176,8 +176,3 @@ isdir (int fd)
 {
   return syscall1 (SYS_ISDIR, fd);
 }
-
-unsigned tell(int fd)
-{
-  return syscall1 (SYS_TELL, fd);
-}

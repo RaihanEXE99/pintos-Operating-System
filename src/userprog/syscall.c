@@ -323,13 +323,6 @@ syscall_handler (struct intr_frame *f)
       f->eax = return_code;
       break;
     }
-    case SYS_TELL:
-    {
-      check_valid_user_pointer(f->esp + 4);
-      int fd = *((int *) (f->esp + 4));
-      f->eax = tell(fd);
-      break;
-    }
 
 #endif
 
