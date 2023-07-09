@@ -104,7 +104,7 @@ main (void)
   paging_init ();
 
 #ifdef VM
-  /* Initialize Virtual memory system. (Project 3) */
+
   vm_frame_init();
 #endif
 

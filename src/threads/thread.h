@@ -108,8 +108,6 @@ struct thread
     /* Owned by userprog/process.c. */
     uint32_t *pagedir;                  /* Page directory. */
 
-    // Project 2: file descriptors and process table
-    /* Owned by userprog/process.c and userprog/syscall.c */
 
     struct process_control_block *pcb;  /* Process Control Block */
     struct list child_list;             /* List of children processes of this thread,
@@ -125,14 +123,14 @@ struct thread
 #endif
 
 #ifdef VM
-    // Project 3: Supplemental page table.
+    
     struct supplemental_page_table *supt;   /* Supplemental Page Table. */
 
-    // Project 3: Memory Mapped Files.
+
     struct list mmap_list;              /* List of struct mmap_desc. */
 #endif
 
-    // Project 4: CWD.
+
     struct dir *cwd;
 
     /* Owned by thread.c. */

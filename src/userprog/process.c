@@ -23,7 +23,6 @@
 #include "vm/page.h"
 
 #ifndef VM
-// alternative of vm-related functions introduced in Project 3
 #define vm_frame_allocate(x, y) palloc_get_page(x)
 #define vm_frame_free(x) palloc_free_page(x)
 #endif
