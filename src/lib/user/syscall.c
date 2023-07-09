@@ -177,8 +177,7 @@ isdir (int fd)
   return syscall1 (SYS_ISDIR, fd);
 }
 
-int
-inumber (int fd) 
+unsigned tell(int fd)
 {
-  return syscall1 (SYS_INUMBER, fd);
+  return syscall1 (SYS_TELL, fd);
 }

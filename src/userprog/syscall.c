@@ -66,7 +66,7 @@ bool sys_chdir(const char *filename);
 bool sys_mkdir(const char *filename);
 bool sys_readdir(int fd, char *filename);
 bool sys_isdir(int fd);
-int sys_inumber(int fd);
+unsigned tell(int fd);
 #endif
 
 struct lock filesys_lock;
@@ -323,15 +323,11 @@ syscall_handler (struct intr_frame *f)
       f->eax = return_code;
       break;
     }
-
-  case SYS_INUMBER: // 19
+    case SYS_TELL:
     {
-      int fd;
-      int return_code;
-
-      memread_user(f->esp + 4, &fd, sizeof(fd));
-      return_code = sys_inumber(fd);
-      f->eax = return_code;
+      check_valid_user_pointer(f->esp + 4);
+      int fd = *((int *) (f->esp + 4));
+      f->eax = tell(fd);
       break;
     }
 
@@ -904,15 +900,13 @@ bool sys_isdir(int fd)
   return ret;
 }
 
-int sys_inumber(int fd)
+unsigned tell(int fd)
 {
-  lock_acquire (&filesys_lock);
+  struct file *file = get_file(fd);
+  if (file == NULL)
+    exit(-1); // Handle invalid file descriptor
 
-  struct file_desc* file_d = find_file_desc(thread_current(), fd, FD_FILE | FD_DIRECTORY);
-  int ret = (int) inode_get_inumber (file_get_inode(file_d->file));
-
-  lock_release (&filesys_lock);
-  return ret;
+  return file_tell(file);
 }
 
 #endif
