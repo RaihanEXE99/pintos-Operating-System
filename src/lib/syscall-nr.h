@@ -25,7 +25,6 @@ enum
     SYS_MKDIR,                  /* Create a directory. */
     SYS_READDIR,                /* Reads a directory entry. */
     SYS_ISDIR,                  /* Tests if a fd represents a directory. */
-    SYS_TELL                 /*  Returns the position of the next byte to be read or written in the opened file */
   };
 
 #endif /* lib/syscall-nr.h */
